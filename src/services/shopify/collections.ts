@@ -41,3 +41,16 @@ export const getCollectionProducts = async (id: string) => {
     console.log(error);
   }
 };
+
+export const getMainProducts = async () => {
+  const response = await fetch(shopifyUrls.collections.mainProducts, {
+    headers: new Headers({
+      'X-Shopify-Access-Token': env.SHOPIFY_TOKEN,
+    }),
+    cache: 'force-cache',
+  });
+
+  const { products } = await response.json();
+
+  return products;
+};
