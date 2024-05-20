@@ -13,7 +13,8 @@ export const createAccessToken = async (email: string, password: string) => {
     }
   );
 
-  const { accessToken, expiresAt } = customerAccessTokenCreate?.customerAccessToken;
+  const { accessToken, expiresAt } =
+    customerAccessTokenCreate?.customerAccessToken;
 
   if (accessToken) {
     cookiesStore.set('accessToken', accessToken, {
@@ -23,4 +24,6 @@ export const createAccessToken = async (email: string, password: string) => {
       sameSite: 'strict',
     });
   }
+
+  return accessToken;
 };
