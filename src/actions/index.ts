@@ -2,6 +2,8 @@
 
 import { GraphQLClientSingleton } from 'app/graphql';
 import { createUserMutation } from 'app/graphql/mutations/createUserMutation';
+import { createAccessToken } from 'app/utils/auth/createAccessToken';
+import { redirect } from 'next/navigation';
 
 export const handleCreateUser = async (formData: FormData) => {
   const formDataObject = Object.fromEntries(formData);
@@ -13,7 +15,18 @@ export const handleCreateUser = async (formData: FormData) => {
       phone: '+57' + formDataObject['phone'],
     },
   };
-  const data = await graphqlClient.request(createUserMutation, variables);
+  const { customerCreate } = await graphqlClient.request(
+    createUserMutation,
+    variables
+  );
 
-  console.log(data);
+  const { customerUserErrors, customer } = customerCreate;
+
+  if (customer?.firstName) {
+    await createAccessToken(
+      formDataObject.email as string,
+      formDataObject.password as string
+    );
+    redirect('/store');
+  }
 };
