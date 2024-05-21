@@ -1,12 +1,18 @@
 import Link from 'next/link';
+import { validateAccessToken } from 'app/utils/auth/validateAccessToken';
+import ShoppingCart from '../ShoppingCart';
+import dynamic from 'next/dynamic';
 import styles from './Header.module.sass';
-import { cookies } from 'next/headers';
 
-export const Header = () => {
-  const cookiesStore = cookies();
-  const token = cookiesStore.get('accessToken')?.value;
+const noSsrShoppingCart = dynamic(() => import('../ShoppingCart'), {
+  ssr: false,
+});
+
+export const Header = async () => {
+  const customer = await validateAccessToken();
+
   return (
-    <header>
+    <header className={styles.Header}>
       <nav>
         <ul className={styles.Header__list}>
           <li>
@@ -16,8 +22,15 @@ export const Header = () => {
             <Link href="/store">Store</Link>
           </li>
         </ul>
-        {token ? <p>Hello user</p> : <Link href="/login"></Link>}
       </nav>
+      <div className={styles.Header__user}>
+        {customer?.firstName ? (
+          <p>Hello {customer.firstName} !</p>
+        ) : (
+          <Link href="/login">Login</Link>
+        )}
+        <ShoppingCart />
+      </div>
     </header>
   );
 };
