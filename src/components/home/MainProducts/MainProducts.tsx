@@ -1,25 +1,36 @@
 import Image from 'next/image';
+import { getMainProducts } from 'app/services/shopify/collections';
 import styles from './MainProducts.module.sass';
 
-import { env } from 'app/config/env';
-
 export const MainProducts = async () => {
-  const response = await fetch(env.API_HOSTNAME);
-  const { products } = await response.json();
+  const products = await getMainProducts();
 
   return (
     <section className={styles.MainProducts}>
       <h3>✨ New products released!</h3>
       <div className={styles.MainProducts__grid}>
-        {products?.map((product: any) => {
-          const imageSrc = product.images[0].src;
-          return (
-            <article key={product.id}>
-              <p>{product.title}</p>
-              <Image src={imageSrc} fill alt={product.title} loading="eager" />
-            </article>
-          );
-        })}
+        {products?.map(
+          (product: {
+            id: string;
+            title: string;
+            images: {
+              src: string;
+            }[];
+          }) => {
+            const imageSrc = product.images[0].src;
+            return (
+              <article key={product.id}>
+                <p>{product.title}</p>
+                <Image
+                  src={imageSrc}
+                  fill
+                  alt={product.title}
+                  loading="eager"
+                />
+              </article>
+            );
+          }
+        )}
       </div>
     </section>
   );
