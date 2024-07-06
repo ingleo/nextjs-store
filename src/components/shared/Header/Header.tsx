@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { validateAccessToken } from 'app/utils/auth/validateAccessToken';
 import ShoppingCart from '../ShoppingCart';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import styles from './Header.module.sass';
 
-const noSsrShoppingCart = dynamic(() => import('../ShoppingCart'), {
+/* const noSsrShoppingCart = dynamic(() => import('../ShoppingCart'), {
   ssr: false,
-});
+}); */
 
 export const Header = async () => {
   const customer = await validateAccessToken();
