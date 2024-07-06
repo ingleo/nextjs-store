@@ -10,9 +10,5 @@ export default async function ChatPage() {
   const flatProductTitles = productTitles.join('\n');
   const agent = createAgent(flatProductTitles);
 
-  return (
-    <>
-      <Chat agent={agent} />
-    </>
-  );
+  return <Chat agent={agent} />;
 }
