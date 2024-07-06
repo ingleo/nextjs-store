@@ -6,6 +6,8 @@ import {
   getCollections,
 } from 'app/services/shopify/collections';
 
+export const runtime = 'edge';
+
 interface SearchParams {
   [key: string]: string;
 }

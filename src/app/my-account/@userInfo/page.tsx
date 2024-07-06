@@ -6,7 +6,7 @@ export default async function UserInfoPage() {
   return (
     <div>
       <section>
-        <p>Welcome {customer.firstName} </p>
+        <p>Welcome {customer?.firstName} </p>
       </section>
     </div>
   );
