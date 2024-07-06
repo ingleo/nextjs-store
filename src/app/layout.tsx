@@ -7,6 +7,8 @@ import 'app/sass/globals.sass';
 const roboto = Roboto({
   weight: ['100', '300', '500', '700'],
   subsets: ['latin'],
+  display: 'swap',
+  adjustFontFallback: false,
 });
 
 /* export const metadata: Metadata = {
