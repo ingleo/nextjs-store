@@ -1,4 +1,4 @@
-import { ChatAgent } from 'app/components/chat/Chat';
+import { ChatAgent } from 'app/components/chat/chat';
 import { getProducts } from 'app/services/shopify/products';
 import { createAgent } from 'app/utils/openai/createAgent';
 
