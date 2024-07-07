@@ -2,6 +2,8 @@ import { Chat } from 'app/components/chat/Chat';
 import { getProducts } from 'app/services/shopify/products';
 import { createAgent } from 'app/utils/openai/createAgent';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ChatPage() {
   const products = await getProducts();
   const productTitles = products.map(
